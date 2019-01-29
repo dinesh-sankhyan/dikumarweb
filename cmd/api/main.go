@@ -36,7 +36,7 @@ import (
 //go:generate swagger generate spec -i ../../tags.json -o ../swagger.json
 func main() {
 	logger.InitLogger("debug", "appName", "Version1.o", "file.txt", "")
-	server.InitSessionStore("localhost", "6379", "localhost:8080", "sessionSecret")
+	//server.InitSessionStore("localhost", "6379", "localhost:8080", "sessionSecret")
 
 	logger.Info("Starting...")
 
