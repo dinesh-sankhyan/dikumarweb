@@ -1,0 +1,10 @@
+{
+    "swagger": "3.0",
+    "tags": [
+      {
+        "name": "Health",
+        "description": "Health End point."
+      }
+    ]
+  }
+  

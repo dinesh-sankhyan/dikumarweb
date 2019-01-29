@@ -1,0 +1,126 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "3.0",
+  "info": {
+    "description": "Your Project description goes here.",
+    "title": "Module API",
+    "license": {
+      "name": "Proprietary API",
+      "url": "http://www.yoursite.com/terms-use.html"
+    },
+    "version": "1.0.0"
+  },
+  "host": "@@HOSTPORT@@",
+  "paths": {
+    "/health": {
+      "get": {
+        "description": "This will return the health of the service and its subsystems.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health Check",
+        "operationId": "GetHealth",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/HealthSuccess"
+          },
+          "default": {
+            "$ref": "#/responses/errorResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "HealthMessage": {
+      "description": "HealthMessage from a subsystem",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Message from the subsystem",
+          "type": "string",
+          "x-go-name": "Message"
+        },
+        "subsystem": {
+          "description": "Name of the subsystem",
+          "type": "string",
+          "x-go-name": "Subsystem"
+        }
+      },
+      "x-go-package": "github.com/dikumarweb/server"
+    }
+  },
+  "responses": {
+    "HealthSuccess": {
+      "description": "Health health end point",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "hostname": {
+            "description": "SCM commit ID for the currently running build",
+            "type": "string",
+            "x-go-name": "HostName"
+          },
+          "messages": {
+            "description": "Significant messages from subsystems",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/HealthMessage"
+            },
+            "x-go-name": "Messages"
+          },
+          "ok": {
+            "description": "Is the service healthy?",
+            "type": "boolean",
+            "x-go-name": "Ok"
+          }
+        }
+      }
+    },
+    "errorResponse": {
+      "description": "ErrorResponse error response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "HTTP status code, same as on response",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "error": {
+            "description": "The error message",
+            "type": "string",
+            "x-go-name": "Error"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "Health End point.",
+      "name": "Health"
+    }
+  ]
+}
